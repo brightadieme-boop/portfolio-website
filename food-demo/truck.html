@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smoky Wheels BBQ — Food Truck</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --black:#0d0d0d; --white:#f5f0e8; --accent:#FF6B35; --accent2:#FFD93D; --surface:#141414; --border:rgba(255,255,255,0.07); --muted:rgba(245,240,232,0.45); }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:var(--black); color:var(--white); font-family:'Outfit',sans-serif; overflow-x:hidden; }
+        nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:18px 40px; display:flex; align-items:center; justify-content:space-between; background:rgba(13,13,13,0.95); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); flex-wrap:wrap; gap:12px; }
+        .nav-back { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:1px; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+        .nav-back:hover { color:var(--accent); }
+        .nav-logo { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:2px; color:var(--accent); }
+        .nav-wa { display:flex; align-items:center; gap:8px; background:#25D366; color:white; font-family:'Outfit',sans-serif; font-weight:600; font-size:13px; padding:10px 20px; border-radius:100px; text-decoration:none; transition:transform 0.2s; }
+        .nav-wa:hover { transform:scale(1.05); }
+        .hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; align-items:center; padding:120px 60px 80px; gap:60px; position:relative; overflow:hidden; }
+        @media(max-width:768px) { .hero { grid-template-columns:1fr; padding:120px 24px 60px; } .hero-visual { display:none; } }
+        .hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse at 70% 50%, rgba(255,107,53,0.08) 0%, transparent 60%); pointer-events:none; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        .hero-tag { display:inline-flex; align-items:center; gap:8px; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--accent); border:1px solid rgba(255,107,53,0.3); padding:7px 16px; border-radius:100px; margin-bottom:24px; animation:fadeUp 0.5s ease both; }
+        .hero h1 { font-family:'Bebas Neue',sans-serif; font-size:clamp(64px,8vw,110px); line-height:0.88; letter-spacing:2px; animation:fadeUp 0.5s 0.1s ease both; }
+        .hero h1 span { color:var(--accent); }
+        .hero-desc { font-size:16px; color:var(--muted); line-height:1.75; max-width:440px; margin:20px 0 32px; animation:fadeUp 0.5s 0.2s ease both; }
+        .hero-btns { display:flex; gap:12px; flex-wrap:wrap; animation:fadeUp 0.5s 0.3s ease both; }
+        .btn-main { font-family:'Outfit',sans-serif; font-weight:600; font-size:14px; background:var(--accent); color:white; padding:14px 32px; border-radius:100px; text-decoration:none; transition:transform 0.2s; display:inline-block; }
+        .btn-main:hover { transform:translateY(-2px); }
+        .btn-outline { font-family:'Outfit',sans-serif; font-size:14px; color:var(--white); padding:14px 32px; border-radius:100px; border:1px solid var(--border); text-decoration:none; transition:all 0.2s; display:inline-block; }
+        .btn-outline:hover { border-color:rgba(255,255,255,0.35); }
+        .hero-visual { display:flex; align-items:center; justify-content:center; position:relative; }
+        @keyframes bobble { 0%,100% { transform:translateY(0) rotate(-2deg); } 50% { transform:translateY(-12px) rotate(2deg); } }
+        .truck-big { font-size:180px; line-height:1; animation:bobble 3s ease-in-out infinite; filter:drop-shadow(0 20px 60px rgba(255,107,53,0.3)); }
+        .hero-badge { position:absolute; bottom:0; right:0; background:var(--accent2); color:var(--black); font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:1px; padding:10px 18px; border-radius:100px; }
+        .location-strip { background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:20px 40px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+        .location-label { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; }
+        .location-spots { display:flex; gap:24px; flex-wrap:wrap; }
+        .location-item { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; }
+        @keyframes pulse { 0%,100% { box-shadow:0 0 0 0 rgba(255,107,53,0.4); } 50% { box-shadow:0 0 0 6px rgba(255,107,53,0); } }
+        .loc-dot { width:8px; height:8px; border-radius:50%; background:var(--accent); animation:pulse 2s infinite; flex-shrink:0; }
+        .loc-time { font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); }
+        .menu-section { padding:80px 40px; }
+        .section-eyebrow { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:3px; color:var(--accent); text-transform:uppercase; margin-bottom:8px; }
+        .section-heading { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,5vw,56px); letter-spacing:1px; line-height:1; margin-bottom:48px; }
+        .menu-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px; max-width:1100px; }
+        .menu-item { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; transition:border-color 0.2s, transform 0.2s; }
+        .menu-item:hover { border-color:rgba(255,107,53,0.35); transform:translateY(-3px); }
+        .menu-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+        .menu-emoji { font-size:32px; }
+        .menu-price { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--accent); }
+        .menu-name { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.5px; margin-bottom:6px; }
+        .menu-desc { font-size:13px; color:var(--muted); line-height:1.5; }
+        .menu-tag { display:inline-block; margin-top:12px; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1px; padding:4px 10px; border-radius:100px; background:rgba(255,107,53,0.1); color:var(--accent); border:1px solid rgba(255,107,53,0.2); }
+        .gallery-section { padding:80px 40px; background:var(--surface); }
+        .gallery-grid { display:grid; grid-template-columns:2fr 1fr 1fr; grid-template-rows:200px 200px; gap:12px; max-width:1100px; }
+        @media(max-width:768px) { .gallery-grid { grid-template-columns:1fr 1fr; grid-template-rows:auto; } }
+        .gallery-item { border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:64px; position:relative; overflow:hidden; transition:transform 0.3s; }
+        .gallery-item:hover { transform:scale(1.02); }
+        .gallery-item:first-child { grid-row:span 2; font-size:100px; }
+        .gi-1 { background:linear-gradient(135deg,#2a1000,#4a2000); }
+        .gi-2 { background:linear-gradient(135deg,#1a0800,#3a1500); }
+        .gi-3 { background:linear-gradient(135deg,#250d00,#452000); }
+        .gi-4 { background:linear-gradient(135deg,#1f0900,#3d1500); }
+        .gi-5 { background:linear-gradient(135deg,#2a1500,#4f2800); }
+        .gallery-label { position:absolute; bottom:12px; left:12px; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1px; color:rgba(245,240,232,0.5); background:rgba(0,0,0,0.5); padding:4px 10px; border-radius:100px; }
+        .booking-section { padding:80px 40px; }
+        .booking-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; max-width:1100px; align-items:start; }
+        @media(max-width:768px) { .booking-grid { grid-template-columns:1fr; } }
+        .booking-info h3 { font-family:'Bebas Neue',sans-serif; font-size:48px; letter-spacing:1px; line-height:1; margin-bottom:16px; }
+        .booking-info h3 span { color:var(--accent); }
+        .booking-info p { font-size:15px; color:var(--muted); line-height:1.75; margin-bottom:32px; }
+        .contact-options { display:flex; flex-direction:column; gap:12px; }
+        .contact-btn { display:flex; align-items:center; gap:12px; padding:16px 24px; border-radius:12px; text-decoration:none; font-weight:600; font-size:15px; transition:transform 0.2s; }
+        .contact-btn:hover { transform:translateX(4px); }
+        .btn-wa { background:#25D366; color:white; }
+        .btn-call { background:var(--surface); color:var(--white); border:1px solid var(--border); }
+        .form-card { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:36px; }
+        .form-card h4 { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:1px; margin-bottom:24px; color:var(--accent); }
+        .form-group { margin-bottom:16px; }
+        .form-group label { display:block; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1.5px; color:var(--muted); text-transform:uppercase; margin-bottom:8px; }
+        .form-group input, .form-group select, .form-group textarea { width:100%; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:10px; padding:12px 16px; color:var(--white); font-family:'Outfit',sans-serif; font-size:14px; outline:none; transition:border-color 0.2s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--accent); }
+        .form-group textarea { resize:vertical; min-height:100px; }
+        .form-submit { width:100%; background:var(--accent); color:white; border:none; border-radius:10px; padding:15px; font-family:'Outfit',sans-serif; font-weight:600; font-size:15px; cursor:pointer; transition:transform 0.2s; margin-top:8px; }
+        .form-submit:hover { transform:translateY(-2px); }
+        footer { padding:28px 40px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+        .footer-logo { font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--accent); }
+        .footer-back { font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); text-decoration:none; }
+        .footer-back:hover { color:var(--white); }
+        select option { background:#1a1a1a; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="nav-back">← ALL DEMOS</a>
+        <div class="nav-logo">🚚 SMOKY WHEELS</div>
+        <a href="https://wa.me/YOUR_NUMBER" class="nav-wa">💬 WhatsApp Us</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div>
+            <div class="hero-tag">🔥 NOW SERVING — STREET FOOD</div>
+            <h1>SMOKY<br><span>WHEELS</span><br>BBQ CO.</h1>
+            <p class="hero-desc">Award-winning street BBQ served fresh daily. Slow-smoked meats, loaded fries and flavours that hit different. Find us across the city.</p>
+            <div class="hero-btns">
+                <a href="#menu" class="btn-main">See Our Menu</a>
+                <a href="#booking" class="btn-outline">Book The Truck</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="truck-big">🚚</div>
+            <div class="hero-badge">EST. 2021</div>
+        </div>
+    </section>
+
+    <div class="location-strip">
+        <div class="location-label">📍 Find Us Today</div>
+        <div class="location-spots">
+            <div class="location-item"><div class="loc-dot"></div><div><div>Market Square</div><div class="loc-time">Mon–Wed · 11am–8pm</div></div></div>
+            <div class="location-item"><div class="loc-dot"></div><div><div>Riverside Park</div><div class="loc-time">Thu–Fri · 12pm–9pm</div></div></div>
+            <div class="location-item"><div class="loc-dot"></div><div><div>High Street Corner</div><div class="loc-time">Sat–Sun · 10am–7pm</div></div></div>
+        </div>
+    </div>
+
+    <section class="menu-section" id="menu">
+        <div class="section-eyebrow">What We Serve</div>
+        <div class="section-heading">THE MENU</div>
+        <div class="menu-grid">
+            <div class="menu-item"><div class="menu-top"><div class="menu-emoji">🥩</div><div class="menu-price">£12</div></div><div class="menu-name">SMOKED BRISKET ROLL</div><p class="menu-desc">12-hour slow smoked beef brisket in a toasted brioche bun with pickles and house sauce.</p><span class="menu-tag">BEST SELLER</span></div>
+            <div class="menu-item"><div class="menu-top"><div class="menu-emoji">🍗</div><div class="menu-price">£10</div></div><div class="menu-name">JERK CHICKEN PLATE</div><p class="menu-desc">Authentic jerk chicken with rice and peas, coleslaw and scotch bonnet sauce.</p><span class="menu-tag">FAN FAVOURITE</span></div>
+            <div class="menu-item"><div class="menu-top"><div class="menu-emoji">🍟</div><div class="menu-price">£6</div></div><div class="menu-name">LOADED FRIES</div><p class="menu-desc">Crispy thick cut fries with pulled pork, cheese sauce and crispy shallots.</p><span class="menu-tag">ADD-ON</span></div>
+            <div class="menu-item"><div class="menu-top"><div class="menu-emoji">🌽</div><div class="menu-price">£4</div></div><div class="menu-name">ELOTE CORN</div><p class="menu-desc">Mexican street corn with mayo, cotija cheese, chilli powder and fresh lime.</p><span class="menu-tag">VEGAN</span></div>
+            <div class="menu-item"><div class="menu-top"><div class="menu-emoji">🥤</div><div class="menu-price">£3</div></div><div class="menu-name">HOMEMADE LEMONADE</div><p class="menu-desc">Fresh squeezed lemonade with mint and a hint of chilli. Ice cold perfection.</p><span class="menu-tag">DRINK</span></div>
+            <div class="menu-item"><div class="menu-top"><div class="menu-emoji">🍔</div><div class="menu-price">£14</div></div><div class="menu-name">SMOKE HOUSE BURGER</div><p class="menu-desc">Double smash patty, bacon, smoked gouda, caramelised onions and BBQ aioli.</p><span class="menu-tag">NEW</span></div>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+        <div class="section-eyebrow">Fresh Daily</div>
+        <div class="section-heading">THE GALLERY</div>
+        <div class="gallery-grid">
+            <div class="gallery-item gi-1">🥩<div class="gallery-label">SMOKED BRISKET</div></div>
+            <div class="gallery-item gi-2">🍗<div class="gallery-label">JERK CHICKEN</div></div>
+            <div class="gallery-item gi-3">🍟<div class="gallery-label">LOADED FRIES</div></div>
+            <div class="gallery-item gi-4">🌽<div class="gallery-label">ELOTE CORN</div></div>
+            <div class="gallery-item gi-5">🚚<div class="gallery-label">THE TRUCK</div></div>
+        </div>
+    </section>
+
+    <section class="booking-section" id="booking">
+        <div class="booking-grid">
+            <div class="booking-info">
+                <h3>BOOK THE<br><span>TRUCK</span></h3>
+                <p>Want us at your event, festival or party? We cater for groups of 20 to 500. Get in touch and we'll make it happen.</p>
+                <div class="contact-options">
+                    <a href="https://wa.me/YOUR_NUMBER" class="contact-btn btn-wa">💬 WhatsApp — Fastest Response</a>
+                    <a href="tel:YOUR_NUMBER" class="contact-btn btn-call">📞 Call Us Directly</a>
+                </div>
+            </div>
+            <div class="form-card">
+                <h4>SEND ENQUIRY</h4>
+                <div class="form-group"><label>Your Name</label><input type="text" placeholder="John Smith"></div>
+                <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" placeholder="+44 7700 000000"></div>
+                <div class="form-group"><label>Event Type</label><select><option>Private Party</option><option>Corporate Event</option><option>Festival / Market</option><option>Wedding</option><option>Other</option></select></div>
+                <div class="form-group"><label>Tell Us More</label><textarea placeholder="Date, location, number of guests..."></textarea></div>
+                <button class="form-submit">SEND ENQUIRY 🔥</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">🚚 SMOKY WHEELS BBQ</div>
+        <a href="index.html" class="footer-back">← BACK TO ALL DEMOS</a>
+    </footer>
+</body>
+</html>

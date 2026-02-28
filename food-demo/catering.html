@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvest Table — Private Catering</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --black:#070f07; --white:#f0f5ee; --accent:#06D6A0; --accent2:#0AC98A; --gold:#F4C542; --surface:#0e180e; --border:rgba(255,255,255,0.07); --muted:rgba(240,245,238,0.45); }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:var(--black); color:var(--white); font-family:'Outfit',sans-serif; overflow-x:hidden; }
+        nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:18px 40px; display:flex; align-items:center; justify-content:space-between; background:rgba(7,15,7,0.95); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); flex-wrap:wrap; gap:12px; }
+        .nav-back { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:1px; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+        .nav-back:hover { color:var(--accent); }
+        .nav-logo { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:2px; color:var(--accent); }
+        .nav-wa { display:flex; align-items:center; gap:8px; background:#25D366; color:white; font-family:'Outfit',sans-serif; font-weight:600; font-size:13px; padding:10px 20px; border-radius:100px; text-decoration:none; transition:transform 0.2s; }
+        .nav-wa:hover { transform:scale(1.05); }
+        .hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; align-items:center; padding:120px 60px 80px; gap:60px; position:relative; overflow:hidden; }
+        @media(max-width:768px) { .hero { grid-template-columns:1fr; padding:120px 24px 60px; } .hero-right { display:none; } }
+        .hero-glow { position:absolute; inset:0; background:radial-gradient(ellipse at 30% 50%, rgba(6,214,160,0.08) 0%, transparent 60%); pointer-events:none; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        .hero-tag { display:inline-flex; align-items:center; gap:8px; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--accent); border:1px solid rgba(6,214,160,0.3); padding:7px 16px; border-radius:100px; margin-bottom:24px; animation:fadeUp 0.5s ease both; }
+        .hero h1 { font-family:'Bebas Neue',sans-serif; font-size:clamp(60px,8vw,108px); line-height:0.88; letter-spacing:2px; animation:fadeUp 0.5s 0.1s ease both; }
+        .hero h1 span { color:var(--accent); }
+        .hero-desc { font-size:16px; color:var(--muted); line-height:1.75; max-width:440px; margin:20px 0 32px; animation:fadeUp 0.5s 0.2s ease both; }
+        .hero-desc strong { color:var(--white); }
+        .hero-btns { display:flex; gap:12px; flex-wrap:wrap; animation:fadeUp 0.5s 0.3s ease both; }
+        .btn-main { font-family:'Outfit',sans-serif; font-weight:600; font-size:14px; background:var(--accent); color:#070f07; padding:14px 32px; border-radius:100px; text-decoration:none; transition:transform 0.2s; display:inline-block; }
+        .btn-main:hover { transform:translateY(-2px); }
+        .btn-ghost { font-family:'Outfit',sans-serif; font-size:14px; color:var(--white); padding:14px 32px; border-radius:100px; border:1px solid var(--border); text-decoration:none; transition:all 0.2s; display:inline-block; }
+        .btn-ghost:hover { border-color:rgba(255,255,255,0.3); }
+        .hero-right { display:flex; flex-direction:column; gap:16px; }
+        .stat-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; position:relative; overflow:hidden; }
+        .stat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent),transparent); }
+        .stat-num { font-family:'Bebas Neue',sans-serif; font-size:52px; color:var(--accent); line-height:1; }
+        .stat-label { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-top:4px; }
+        .packages-section { padding:80px 40px; }
+        .section-eyebrow { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:3px; color:var(--accent); text-transform:uppercase; margin-bottom:8px; }
+        .section-heading { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,5vw,56px); letter-spacing:1px; line-height:1; margin-bottom:48px; }
+        .packages-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; max-width:1100px; }
+        .package-card { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:32px; position:relative; overflow:hidden; transition:transform 0.2s, border-color 0.2s; }
+        .package-card:hover { transform:translateY(-4px); border-color:rgba(6,214,160,0.3); }
+        .package-card.featured { border-color:var(--accent); }
+        .package-card.featured::before { content:'POPULAR'; position:absolute; top:16px; right:16px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:2px; background:var(--accent); color:#070f07; padding:4px 10px; border-radius:100px; font-weight:600; }
+        .package-icon { font-size:40px; margin-bottom:16px; display:block; }
+        .package-name { font-family:'Bebas Neue',sans-serif; font-size:30px; letter-spacing:1px; margin-bottom:8px; }
+        .package-price { font-family:'Bebas Neue',sans-serif; font-size:48px; color:var(--accent); line-height:1; }
+        .package-price span { font-size:16px; font-family:'Outfit',sans-serif; color:var(--muted); font-weight:400; }
+        .package-desc { font-size:14px; color:var(--muted); line-height:1.6; margin:16px 0 24px; }
+        .package-features { list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:28px; }
+        .package-features li { display:flex; align-items:center; gap:10px; font-size:14px; color:rgba(240,245,238,0.75); }
+        .feature-check { width:18px; height:18px; background:rgba(6,214,160,0.15); border:1px solid rgba(6,214,160,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:10px; color:var(--accent); }
+        .package-btn { display:block; text-align:center; font-family:'Outfit',sans-serif; font-weight:600; font-size:14px; padding:14px; border-radius:10px; text-decoration:none; transition:all 0.2s; }
+        .pkg-btn-outline { border:1px solid var(--border); color:var(--white); }
+        .pkg-btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+        .pkg-btn-filled { background:var(--accent); color:#070f07; }
+        .pkg-btn-filled:hover { transform:translateY(-2px); }
+        .gallery-section { padding:80px 40px; background:var(--surface); }
+        .gallery-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; max-width:1100px; }
+        @media(max-width:768px) { .gallery-grid { grid-template-columns:1fr 1fr; } }
+        .gallery-item { border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:64px; height:180px; position:relative; overflow:hidden; transition:transform 0.3s; }
+        .gallery-item:hover { transform:scale(1.03); }
+        .gi-1 { background:linear-gradient(135deg,#071a07,#103510); }
+        .gi-2 { background:linear-gradient(135deg,#0a1f0a,#153020); }
+        .gi-3 { background:linear-gradient(135deg,#071a10,#0f3020); }
+        .gi-4 { background:linear-gradient(135deg,#0a1a0a,#143025); }
+        .gi-5 { background:linear-gradient(135deg,#071510,#0d2818); }
+        .gi-6 { background:linear-gradient(135deg,#081808,#122a12); }
+        .gallery-label { position:absolute; bottom:10px; left:10px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(240,245,238,0.45); background:rgba(0,0,0,0.5); padding:3px 8px; border-radius:100px; }
+        .booking-section { padding:80px 40px; }
+        .booking-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; max-width:1100px; align-items:start; }
+        @media(max-width:768px) { .booking-grid { grid-template-columns:1fr; } }
+        .booking-info h3 { font-family:'Bebas Neue',sans-serif; font-size:48px; letter-spacing:1px; line-height:1; margin-bottom:16px; }
+        .booking-info h3 span { color:var(--accent); }
+        .booking-info p { font-size:15px; color:var(--muted); line-height:1.75; margin-bottom:32px; }
+        .contact-options { display:flex; flex-direction:column; gap:12px; }
+        .contact-btn { display:flex; align-items:center; gap:12px; padding:16px 24px; border-radius:12px; text-decoration:none; font-weight:600; font-size:15px; transition:transform 0.2s; }
+        .contact-btn:hover { transform:translateX(4px); }
+        .btn-wa { background:#25D366; color:white; }
+        .btn-call { background:var(--surface); color:var(--white); border:1px solid var(--border); }
+        .form-card { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:36px; }
+        .form-card h4 { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:1px; margin-bottom:24px; color:var(--accent); }
+        .form-group { margin-bottom:16px; }
+        .form-group label { display:block; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1.5px; color:var(--muted); text-transform:uppercase; margin-bottom:8px; }
+        .form-group input, .form-group select, .form-group textarea { width:100%; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:10px; padding:12px 16px; color:var(--white); font-family:'Outfit',sans-serif; font-size:14px; outline:none; transition:border-color 0.2s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--accent); }
+        .form-group textarea { resize:vertical; min-height:100px; }
+        .form-submit { width:100%; background:var(--accent); color:#070f07; border:none; border-radius:10px; padding:15px; font-family:'Outfit',sans-serif; font-weight:700; font-size:15px; cursor:pointer; transition:transform 0.2s; margin-top:8px; }
+        .form-submit:hover { transform:translateY(-2px); }
+        footer { padding:28px 40px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+        .footer-logo { font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--accent); }
+        .footer-back { font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); text-decoration:none; }
+        .footer-back:hover { color:var(--white); }
+        select option { background:#0e180e; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="nav-back">← ALL DEMOS</a>
+        <div class="nav-logo">🍽️ HARVEST TABLE</div>
+        <a href="https://wa.me/YOUR_NUMBER" class="nav-wa">💬 WhatsApp Us</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div>
+            <div class="hero-tag">🍽️ PRIVATE CATERING SERVICES</div>
+            <h1>HARVEST<br><span>TABLE</span><br>CATERING</h1>
+            <p class="hero-desc">Exceptional food for <strong>weddings, corporate events and private parties.</strong> Fresh ingredients, stunning presentation, unforgettable dining experiences.</p>
+            <div class="hero-btns">
+                <a href="#packages" class="btn-main">View Packages</a>
+                <a href="#booking" class="btn-ghost">Request a Quote</a>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="stat-card"><div class="stat-num">500+</div><div class="stat-label">Events Catered</div></div>
+            <div class="stat-card"><div class="stat-num">98%</div><div class="stat-label">Client Satisfaction</div></div>
+            <div class="stat-card"><div class="stat-num">5★</div><div class="stat-label">Average Rating</div></div>
+        </div>
+    </section>
+
+    <section class="packages-section" id="packages">
+        <div class="section-eyebrow">What We Offer</div>
+        <div class="section-heading">OUR PACKAGES</div>
+        <div class="packages-grid">
+            <div class="package-card">
+                <span class="package-icon">🥗</span>
+                <div class="package-name">GARDEN PARTY</div>
+                <div class="package-price">£25 <span>per person</span></div>
+                <p class="package-desc">Perfect for casual gatherings and garden events. Fresh salads, canapés and light bites.</p>
+                <ul class="package-features">
+                    <li><span class="feature-check">✓</span>Cold buffet selection</li>
+                    <li><span class="feature-check">✓</span>Canapés & finger food</li>
+                    <li><span class="feature-check">✓</span>Minimum 20 guests</li>
+                    <li><span class="feature-check">✓</span>Setup & breakdown</li>
+                </ul>
+                <a href="#booking" class="package-btn pkg-btn-outline">Enquire Now</a>
+            </div>
+            <div class="package-card featured">
+                <span class="package-icon">🍽️</span>
+                <div class="package-name">FULL DINNER</div>
+                <div class="package-price">£55 <span>per person</span></div>
+                <p class="package-desc">Three course plated dinner service. Ideal for weddings and corporate events.</p>
+                <ul class="package-features">
+                    <li><span class="feature-check">✓</span>3 course plated service</li>
+                    <li><span class="feature-check">✓</span>Waitstaff included</li>
+                    <li><span class="feature-check">✓</span>Custom menu design</li>
+                    <li><span class="feature-check">✓</span>Dietary accommodations</li>
+                </ul>
+                <a href="#booking" class="package-btn pkg-btn-filled">Enquire Now</a>
+            </div>
+            <div class="package-card">
+                <span class="package-icon">👑</span>
+                <div class="package-name">PREMIUM</div>
+                <div class="package-price">£95 <span>per person</span></div>
+                <p class="package-desc">Luxury five course tasting menu with premium ingredients and full event coordination.</p>
+                <ul class="package-features">
+                    <li><span class="feature-check">✓</span>5 course tasting menu</li>
+                    <li><span class="feature-check">✓</span>Sommelier service</li>
+                    <li><span class="feature-check">✓</span>Full event coordination</li>
+                    <li><span class="feature-check">✓</span>Floral decoration</li>
+                </ul>
+                <a href="#booking" class="package-btn pkg-btn-outline">Enquire Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+        <div class="section-eyebrow">Our Work</div>
+        <div class="section-heading">GALLERY</div>
+        <div class="gallery-grid">
+            <div class="gallery-item gi-1">🥩<div class="gallery-label">MAIN COURSE</div></div>
+            <div class="gallery-item gi-2">🥗<div class="gallery-label">STARTER</div></div>
+            <div class="gallery-item gi-3">🍰<div class="gallery-label">DESSERT</div></div>
+            <div class="gallery-item gi-4">🍤<div class="gallery-label">CANAPÉS</div></div>
+            <div class="gallery-item gi-5">🫕<div class="gallery-label">BUFFET</div></div>
+            <div class="gallery-item gi-6">🥂<div class="gallery-label">RECEPTION</div></div>
+        </div>
+    </section>
+
+    <section class="booking-section" id="booking">
+        <div class="booking-grid">
+            <div class="booking-info">
+                <h3>REQUEST<br>YOUR<br><span>QUOTE</span></h3>
+                <p>Every event is unique. Tell us about yours and we'll create a bespoke proposal tailored to your exact requirements and budget.</p>
+                <div class="contact-options">
+                    <a href="https://wa.me/YOUR_NUMBER" class="contact-btn btn-wa">💬 WhatsApp — Fastest Response</a>
+                    <a href="tel:YOUR_NUMBER" class="contact-btn btn-call">📞 Call Us</a>
+                </div>
+            </div>
+            <div class="form-card">
+                <h4>GET A QUOTE</h4>
+                <div class="form-group"><label>Your Name</label><input type="text" placeholder="Sarah Johnson"></div>
+                <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" placeholder="+44 7700 000000"></div>
+                <div class="form-group"><label>Event Type</label><select><option>Wedding</option><option>Corporate Dinner</option><option>Birthday Party</option><option>Garden Party</option><option>Other</option></select></div>
+                <div class="form-group"><label>Number of Guests</label><input type="number" placeholder="50"></div>
+                <div class="form-group"><label>Tell Us More</label><textarea placeholder="Date, venue, budget, dietary requirements..."></textarea></div>
+                <button class="form-submit">REQUEST QUOTE 🍽️</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">🍽️ HARVEST TABLE</div>
+        <a href="index.html" class="footer-back">← BACK TO ALL DEMOS</a>
+    </footer>
+</body>
+</html>

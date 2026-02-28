@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Fitgoal - Personal Trainer Website Demo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <!-- main stylesheet -->
+        <link rel="stylesheet" href="ptstyles.css" />
+    </head>
+    <body class="trainer-page">
+        <!-- Header /nav -->
+        <header class="site-header">
+            <div class="container header-flex">
+                <a href="../index.html" class="logo">Bright | Web Dev</a>
+                <nav class="nav-links">
+                    <a href="#programmes">Programmes</a>
+                    <a href="#about">About</a>
+                    <a href="#testimonials">Results</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero -->
+        <section class="hero section">
+            <div class="container hero-grid">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <span></span>
+                        Mock client project | Personal training
+                    </div>
+
+                    <h1>Fitgoal - 1:1 Personal Training in London</h1>
+                    <p>
+                        Demo website for a personal trainer who helps busy professional get 
+                        leaner, stronger and more confident - with gym, home and online coaching options.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn">Book a free consult</a>
+                        <a href="#programmes" class="btn btn-outline">View Programmes</a>
+                    </div>
+
+                    <p class="hero-note">
+                        <strong>Project type:</strong> Mock client site | Built with HTML and CSS
+                    </p>
+                </div>
+
+                <div class="hero-image">
+                    <img
+                    src="ptimage.jpg"
+                    alt="Personal training coaching a client in the gym"
+                    class="hero-image-main"
+                    />
+                    <div class="hero-stat">
+                        <strong>+40 clients</strong>
+                        transformed in 12 months
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programmes -->
+        <section id="Programmes" class="section-alt">
+            <div class="container">
+                <h2>Coaching Programmes</h2>
+                <p class="section-intro">
+                    The homepage highlights three clear offers so visitors can pick
+                    the path that matches their goals and budget.
+                </p>
+                
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>1:1 in-person coaching</h3>
+                        <p>
+                            Weekly sessions at the gym with a custom programming and technique coaching.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3>Online Coaching</h3>
+                        <p>
+                            Fully remote programme, video check-ins and progress tracking inside
+                            a  coaching app.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3>Small group training</h3>
+                        <p>
+                            Semi-private sessions for 3-5 people who want the energy of group with
+                            the attention of PT.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About / process -->
+        <section id="about" class="Section">
+            <div class="container about-grid">
+                <div>
+                    <h2>Built to sell results, not just workouts</h2>
+                    <p>
+                        This concept is designed for trainers who works with busy clients that 
+                        cares about positive results : fat loss, strength and confidence.We foucus on results
+                        with physical proof to show for your efforts we keep it simple and fun even in the proccess
+                    </p>
+                    <p>
+                        this section also contains trainer's story, credentials and photo to build trust
+                    </p>
+
+                    <div class="pill-row">
+                        <span class="pill">Goal-focused</span>
+                        <span class="pill">Clear call-to-actions</span>
+                        <span class="pill">Mobile-friendly design</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>What this site includes</h3>
+                    <ul class="feature-list">
+                        <li>Hero with strong hook and clear CTA buttons</li>
+                        <li>Programmes laid out in simple card with benefits</li>
+                        <li>Social proof and transformation highlights</li>
+                        <li>Consultation form that captures key client details</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section id="testimonials" class="section-alt">
+            <div class="container">
+                <h2>Client results</h2>
+                <p class="section-intro">
+                    Example transformation to show testimonials of before and after results 
+                    could be displayed.
+                </p>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <p>
+                            "In 6 months I dropped 9kg, improved my posture and feel confident
+                            in the gym for the first time in my life."
+                        </p>
+                        <span class="testimonials-name">- Jess, 32, South London</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact / consult form -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2>Book free consultation (demo form)</h2>
+                <p class="section-intro">
+                    On a real site form would send details to the trainer's inbox or CRM.
+                    Here it demonstrates how I'd structure a high-converting enquiry form.
+                </p>
+
+                <form
+                 class="form-card"
+                 onsubmit="event.preventDefault(); alert('Demo only- this form is not connected yet.');">
+                 <div class="form-row">
+                    <label>
+                        Name
+                        <input type="text" name="name" placeholder="Your name" required />
+                    </label>
+                    <label>
+                        Email
+                        <input type="email" name="email" placeholder="you@example.com" required />
+                    </label>
+                 </div>
+
+                 <div class="form-row">
+                    <label>
+                        Main goal
+                        <select name="goal">
+                            <option>Lose body fat</option>
+                            <option>Build strength & muscle</option>
+                            <option>Improve general fitness</option>
+                            <option>Fix aches & pains</option>
+                        </select>
+                    </label>
+                    <label>
+                        Preferred style
+                        <select name="style">
+                            <option>In-person gym sessions</option>
+                            <option>Home workouts</option>
+                            <option>Online coaching only</option>
+                            <option>Not sure yet</option>
+                        </select>
+                    </label>
+                 </div>
+                 
+                 <label>
+                    Tell me about your current routine
+                    <textarea
+                      name="details"
+                      placeholder="How often you train now, any injuries, and when you'd like to start..."
+                      ></textarea>
+                 </label>
+
+                 <button type="submit" class="btn">Send enquiry (demo)</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container footer-flex">
+                <p>Fitgoal - Demo personal trainer website | Designed and built by Bright</p>
+                <a href=http://127.0.0.1:5500/portfolio-website/index.html>Back to portfolio</a>
+            </div>
+        </footer>
+
+    </body>
+</html>

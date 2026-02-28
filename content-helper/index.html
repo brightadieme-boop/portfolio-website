@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Website Content Helper</title>
+  <link rel="stylesheet" href="contenthelper.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="back-link" href="http://127.0.0.1:5500/portfolio-website/index.html">← Back to Portfolio</a>
+
+      <div class="title">
+        <h1>Your Website Content Helper</h1>
+        <p>Works for any business: services, products, coaching, agencies, creators, and more.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2> Business details</h2>
+      <p class="muted">
+        Fill in what you know. If you leave something blank, we’ll use a sensible default.
+        This tool generates a structured draft you can paste into Shopify/WooCommerce/any website.
+      </p>
+
+      <form id="contentForm" class="form">
+        <div class="grid">
+          <label class="field">
+            Business / brand name
+            <input id="brandName" type="text" placeholder="e.g. BrightClean, CoachFit, YourBrand" />
+          </label>
+
+          <label class="field">
+            What do you sell? (type of offer)
+            <select id="offerType">
+              <option value="service">Service</option>
+              <option value="product">Physical product</option>
+              <option value="digital">Digital product</option>
+              <option value="coaching">Coaching / consulting</option>
+              <option value="subscription">Subscription / membership</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+
+          <label class="field">
+            Short offer name (what you call it)
+            <input id="offerName" type="text" placeholder="e.g. Deep Clean, 1:1 Coaching, Handmade Candles" />
+          </label>
+
+          <label class="field">
+            Who is it for? (target customer)
+            <input id="audience" type="text" placeholder="e.g. busy professionals, new parents, small businesses" />
+          </label>
+
+          <label class="field">
+            Main result / benefit (the transformation)
+            <input id="result" type="text" placeholder="e.g. a spotless home, stronger body, better sales" />
+          </label>
+
+          <label class="field">
+            Location (or “Online”)
+            <input id="location" type="text" placeholder="e.g. London / UK-wide / Online" />
+          </label>
+
+          <label class="field">
+            What makes you different? (unique selling point)
+            <input id="usp" type="text" placeholder="e.g. same-day slots, premium quality, fast delivery" />
+          </label>
+
+          <label class="field">
+            Proof (optional)
+            <input id="proof" type="text" placeholder="e.g. 100+ clients, 5-star reviews, 10 years experience" />
+          </label>
+
+          <label class="field full">
+            List your services / products (one per line)
+            <textarea id="items" rows="6" placeholder="Example:
+Premium package
+Standard package
+Starter package"></textarea>
+          </label>
+
+          <label class="field full">
+            Common questions customers ask (one per line)
+            <textarea id="faqs" rows="5" placeholder="Example:
+How much does it cost?
+How fast is delivery?
+What areas do you cover?"></textarea>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" type="button" id="generateBtn">Generate Draft</button>
+          <button class="btn" type="button" id="copyBtn" disabled>Copy Draft</button>
+          <button class="btn ghost" type="reset" id="resetBtn">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Generated website draft</h2>
+      <p class="muted">
+        Paste these sections into your website: homepage hero, about, services/products, FAQs, and CTA.
+      </p>
+
+      <pre id="output" class="output">Click “Generate Draft” to create content…</pre>
+
+      <div class="note">
+        <strong>Tip:</strong> This is template-based (not AI). If you want an AI version later,
+        we can plug in an API — but this already works for any business.
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

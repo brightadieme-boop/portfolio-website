@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugar & Soul — Bakery & Cakes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --black:#0f070f; --white:#fef0f8; --accent:#FF85E1; --accent2:#FF5EC9; --gold:#FFD93D; --surface:#1a0d1a; --border:rgba(255,255,255,0.07); --muted:rgba(254,240,248,0.45); }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:var(--black); color:var(--white); font-family:'Outfit',sans-serif; overflow-x:hidden; }
+        nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:18px 40px; display:flex; align-items:center; justify-content:space-between; background:rgba(15,7,15,0.95); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); flex-wrap:wrap; gap:12px; }
+        .nav-back { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:1px; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+        .nav-back:hover { color:var(--accent); }
+        .nav-logo { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:2px; color:var(--accent); }
+        .nav-wa { display:flex; align-items:center; gap:8px; background:#25D366; color:white; font-family:'Outfit',sans-serif; font-weight:600; font-size:13px; padding:10px 20px; border-radius:100px; text-decoration:none; transition:transform 0.2s; }
+        .nav-wa:hover { transform:scale(1.05); }
+        .hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:120px 40px 80px; text-align:center; position:relative; overflow:hidden; }
+        .hero-glow { position:absolute; inset:0; background:radial-gradient(ellipse at 50% 40%, rgba(255,133,225,0.1) 0%, transparent 65%); pointer-events:none; }
+        @keyframes spin-slow { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+        .deco-ring { position:absolute; width:600px; height:600px; border:1px solid rgba(255,133,225,0.06); border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); animation:spin-slow 30s linear infinite; pointer-events:none; }
+        .deco-ring-2 { width:400px; height:400px; animation-direction:reverse; animation-duration:20s; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes bounce { 0%,100% { transform:translateY(0) scale(1); } 50% { transform:translateY(-14px) scale(1.05); } }
+        .hero-tag { display:inline-flex; align-items:center; gap:8px; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--accent); border:1px solid rgba(255,133,225,0.3); padding:7px 16px; border-radius:100px; margin-bottom:20px; position:relative; z-index:2; animation:fadeUp 0.5s ease both; }
+        .cake-float { font-size:90px; animation:bounce 3s ease-in-out infinite; display:block; margin-bottom:16px; position:relative; z-index:2; filter:drop-shadow(0 0 30px rgba(255,133,225,0.4)); }
+        .hero h1 { font-family:'Bebas Neue',sans-serif; font-size:clamp(68px,11vw,140px); line-height:0.85; letter-spacing:3px; position:relative; z-index:2; animation:fadeUp 0.5s 0.1s ease both; }
+        .hero h1 .pink { color:var(--accent); }
+        .hero h1 .outline { -webkit-text-stroke:2px var(--accent); color:transparent; }
+        .hero-desc { font-size:16px; color:var(--muted); max-width:460px; line-height:1.8; margin:24px auto; position:relative; z-index:2; animation:fadeUp 0.5s 0.2s ease both; }
+        .hero-desc strong { color:var(--white); }
+        .hero-btns { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; position:relative; z-index:2; animation:fadeUp 0.5s 0.3s ease both; }
+        .btn-main { font-family:'Outfit',sans-serif; font-weight:600; font-size:14px; background:var(--accent); color:var(--black); padding:14px 32px; border-radius:100px; text-decoration:none; transition:transform 0.2s, box-shadow 0.2s; display:inline-block; }
+        .btn-main:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(255,133,225,0.3); }
+        .btn-ghost { font-family:'Outfit',sans-serif; font-size:14px; color:var(--white); padding:14px 32px; border-radius:100px; border:1px solid var(--border); text-decoration:none; transition:all 0.2s; display:inline-block; }
+        .btn-ghost:hover { border-color:rgba(255,255,255,0.3); }
+        .menu-section { padding:80px 40px; }
+        .section-eyebrow { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:3px; color:var(--accent); text-transform:uppercase; margin-bottom:8px; }
+        .section-heading { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,5vw,56px); letter-spacing:2px; line-height:1; margin-bottom:48px; }
+        .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:20px; max-width:1100px; }
+        .product-card { background:var(--surface); border:1px solid var(--border); border-radius:20px; overflow:hidden; transition:transform 0.2s, border-color 0.2s; }
+        .product-card:hover { transform:translateY(-4px); border-color:rgba(255,133,225,0.3); }
+        .product-preview { height:140px; display:flex; align-items:center; justify-content:center; font-size:72px; position:relative; }
+        .pp-1 { background:linear-gradient(135deg,#1f0a1f,#380f38); }
+        .pp-2 { background:linear-gradient(135deg,#1a0820,#30103a); }
+        .pp-3 { background:linear-gradient(135deg,#200a1a,#3a0f30); }
+        .pp-4 { background:linear-gradient(135deg,#1f0f1f,#351535); }
+        .pp-5 { background:linear-gradient(135deg,#18081a,#2a0f2d); }
+        .pp-6 { background:linear-gradient(135deg,#1a0a20,#2f1038); }
+        .product-body { padding:20px; }
+        .product-name { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.5px; margin-bottom:6px; }
+        .product-desc { font-size:13px; color:var(--muted); line-height:1.5; margin-bottom:14px; }
+        .product-footer { display:flex; align-items:center; justify-content:space-between; }
+        .product-price { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--accent); }
+        .product-tag { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1px; padding:4px 10px; border-radius:100px; background:rgba(255,133,225,0.1); color:var(--accent); border:1px solid rgba(255,133,225,0.2); }
+        .gallery-section { padding:80px 40px; background:var(--surface); }
+        .gallery-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; max-width:1100px; }
+        @media(max-width:768px) { .gallery-grid { grid-template-columns:1fr 1fr; } }
+        .gallery-item { border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:72px; height:200px; position:relative; overflow:hidden; transition:transform 0.3s; }
+        .gallery-item:hover { transform:scale(1.03); }
+        .gallery-item.big { grid-column:span 2; font-size:100px; }
+        .gi-1 { background:linear-gradient(135deg,#200a20,#3d1040); }
+        .gi-2 { background:linear-gradient(135deg,#1a0820,#301038); }
+        .gi-3 { background:linear-gradient(135deg,#200f20,#381535); }
+        .gi-4 { background:linear-gradient(135deg,#1f0a1f,#350f38); }
+        .gi-5 { background:linear-gradient(135deg,#180818,#2d0d2d); }
+        .gallery-label { position:absolute; bottom:12px; left:12px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:1px; color:rgba(254,240,248,0.45); background:rgba(0,0,0,0.5); padding:3px 8px; border-radius:100px; }
+        .booking-section { padding:80px 40px; }
+        .booking-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; max-width:1100px; align-items:start; }
+        @media(max-width:768px) { .booking-grid { grid-template-columns:1fr; } }
+        .booking-info h3 { font-family:'Bebas Neue',sans-serif; font-size:48px; letter-spacing:2px; line-height:1; margin-bottom:16px; }
+        .booking-info h3 span { color:var(--accent); }
+        .booking-info p { font-size:15px; color:var(--muted); line-height:1.75; margin-bottom:32px; }
+        .contact-options { display:flex; flex-direction:column; gap:12px; }
+        .contact-btn { display:flex; align-items:center; gap:12px; padding:16px 24px; border-radius:12px; text-decoration:none; font-weight:600; font-size:15px; transition:transform 0.2s; }
+        .contact-btn:hover { transform:translateX(4px); }
+        .btn-wa { background:#25D366; color:white; }
+        .btn-call { background:var(--surface); color:var(--white); border:1px solid var(--border); }
+        .form-card { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:36px; }
+        .form-card h4 { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:1px; margin-bottom:24px; color:var(--accent); }
+        .form-group { margin-bottom:16px; }
+        .form-group label { display:block; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1.5px; color:var(--muted); text-transform:uppercase; margin-bottom:8px; }
+        .form-group input, .form-group select, .form-group textarea { width:100%; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:10px; padding:12px 16px; color:var(--white); font-family:'Outfit',sans-serif; font-size:14px; outline:none; transition:border-color 0.2s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--accent); }
+        .form-group textarea { resize:vertical; min-height:100px; }
+        .form-submit { width:100%; background:var(--accent); color:var(--black); border:none; border-radius:10px; padding:15px; font-family:'Outfit',sans-serif; font-weight:700; font-size:15px; cursor:pointer; transition:transform 0.2s; margin-top:8px; }
+        .form-submit:hover { transform:translateY(-2px); }
+        footer { padding:28px 40px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+        .footer-logo { font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--accent); }
+        .footer-back { font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); text-decoration:none; }
+        .footer-back:hover { color:var(--white); }
+        select option { background:#1a0d1a; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="nav-back">← ALL DEMOS</a>
+        <div class="nav-logo">🎂 SUGAR & SOUL</div>
+        <a href="https://wa.me/YOUR_NUMBER" class="nav-wa">💬 WhatsApp Us</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="deco-ring"></div>
+        <div class="deco-ring deco-ring-2"></div>
+        <div class="hero-tag">🎂 CUSTOM CAKES & PASTRIES</div>
+        <span class="cake-float">🎂</span>
+        <h1>SUGAR<br><span class="pink">&</span><br><span class="outline">SOUL</span></h1>
+        <p class="hero-desc">Handcrafted cakes and pastries made with <strong>love and precision.</strong> Custom designs, celebration cakes, and daily fresh bakes.</p>
+        <div class="hero-btns">
+            <a href="#menu" class="btn-main">See Our Bakes</a>
+            <a href="#booking" class="btn-ghost">Order Custom Cake</a>
+        </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+        <div class="section-eyebrow">Fresh Baked Daily</div>
+        <div class="section-heading">OUR BAKES</div>
+        <div class="products-grid">
+            <div class="product-card"><div class="product-preview pp-1">🎂</div><div class="product-body"><div class="product-name">CUSTOM CELEBRATION CAKE</div><p class="product-desc">Fully personalised multi-tier cakes for birthdays, weddings and special events.</p><div class="product-footer"><div class="product-price">from £85</div><span class="product-tag">CUSTOM</span></div></div></div>
+            <div class="product-card"><div class="product-preview pp-2">🧁</div><div class="product-body"><div class="product-name">CUPCAKE BOX (12)</div><p class="product-desc">Dozen artisan cupcakes with buttercream frosting. Flavours of your choice.</p><div class="product-footer"><div class="product-price">£28</div><span class="product-tag">BESTSELLER</span></div></div></div>
+            <div class="product-card"><div class="product-preview pp-3">🥐</div><div class="product-body"><div class="product-name">BUTTER CROISSANTS</div><p class="product-desc">Classic French laminated pastry, flaky and buttery. Baked fresh every morning.</p><div class="product-footer"><div class="product-price">£3.50</div><span class="product-tag">DAILY</span></div></div></div>
+            <div class="product-card"><div class="product-preview pp-4">🍰</div><div class="product-body"><div class="product-name">CLASSIC CHEESECAKE</div><p class="product-desc">New York style baked cheesecake with choice of seasonal fruit topping.</p><div class="product-footer"><div class="product-price">£35</div><span class="product-tag">WHOLE CAKE</span></div></div></div>
+            <div class="product-card"><div class="product-preview pp-5">🍫</div><div class="product-body"><div class="product-name">BROWNIE BOX (9)</div><p class="product-desc">Fudgy dark chocolate brownies with optional walnuts or salted caramel swirl.</p><div class="product-footer"><div class="product-price">£18</div><span class="product-tag">GIFT BOX</span></div></div></div>
+            <div class="product-card"><div class="product-preview pp-6">🥧</div><div class="product-body"><div class="product-name">SEASONAL TART</div><p class="product-desc">Buttery shortcrust pastry with crème pâtissière and fresh seasonal fruits.</p><div class="product-footer"><div class="product-price">£22</div><span class="product-tag">SEASONAL</span></div></div></div>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+        <div class="section-eyebrow">Made With Love</div>
+        <div class="section-heading">GALLERY</div>
+        <div class="gallery-grid">
+            <div class="gallery-item gi-1 big">🎂<div class="gallery-label">WEDDING CAKE</div></div>
+            <div class="gallery-item gi-2">🧁<div class="gallery-label">CUPCAKES</div></div>
+            <div class="gallery-item gi-3">🥐<div class="gallery-label">PASTRIES</div></div>
+            <div class="gallery-item gi-4">🍰<div class="gallery-label">CHEESECAKE</div></div>
+            <div class="gallery-item gi-5">🍫<div class="gallery-label">BROWNIES</div></div>
+        </div>
+    </section>
+
+    <section class="booking-section" id="booking">
+        <div class="booking-grid">
+            <div class="booking-info">
+                <h3>ORDER YOUR<br><span>CUSTOM</span><br>CAKE</h3>
+                <p>Every custom cake is made to order with love. Tell us your vision, flavours, size and occasion — we'll make it happen beautifully.</p>
+                <div class="contact-options">
+                    <a href="https://wa.me/YOUR_NUMBER" class="contact-btn btn-wa">💬 WhatsApp — Send Inspiration</a>
+                    <a href="tel:YOUR_NUMBER" class="contact-btn btn-call">📞 Call Us</a>
+                </div>
+            </div>
+            <div class="form-card">
+                <h4>PLACE AN ORDER</h4>
+                <div class="form-group"><label>Your Name</label><input type="text" placeholder="Emma Williams"></div>
+                <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" placeholder="+44 7700 000000"></div>
+                <div class="form-group"><label>What Do You Need?</label><select><option>Custom Celebration Cake</option><option>Wedding Cake</option><option>Cupcake Box</option><option>Mixed Pastry Order</option><option>Corporate Order</option><option>Other</option></select></div>
+                <div class="form-group"><label>Date Needed</label><input type="date"></div>
+                <div class="form-group"><label>Tell Us Your Vision</label><textarea placeholder="Flavour, design ideas, size, number of servings, theme..."></textarea></div>
+                <button class="form-submit">PLACE ORDER 🎂</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">🎂 SUGAR & SOUL</div>
+        <a href="index.html" class="footer-back">← BACK TO ALL DEMOS</a>
+    </footer>
+</body>
+</html>
